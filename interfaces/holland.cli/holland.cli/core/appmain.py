@@ -15,8 +15,8 @@ from cement.core.app_setup import lay_cement
 from cement.core.command import run_command
 
 from holland.cli.core.config import default_config
-from holland.cli.core.exc import Holland.cliArgumentError, Holland.cliConfigError
-from holland.cli.core.exc import Holland.cliRuntimeError
+from holland.cli.core.exc import HollandCliArgumentError, HollandCliConfigError
+from holland.cli.core.exc import HollandCliRuntimeError
 
 VERSION = get_distribution('holland.cli').version
 BANNER = """
@@ -30,7 +30,7 @@ def main(args=None):
             
         lay_cement(config=default_config, banner=BANNER, args=args, 
                    version=VERSION)
-    
+   T 
         log = get_logger(__name__)
         log.debug("Cement Framework Initialized!")
 
@@ -41,22 +41,22 @@ def main(args=None):
             
     except CementArgumentError, e:
         # Display the apps exception names instead for the Cement exceptions.
-        print("Holland.cliArgumentError > %s" % e)
+        print("HollandCliArgumentError > %s" % e)
         sys.exit(e.code)
     except CementConfigError, e:
-        print("Holland.cliConfigError > %s" % e)
+        print("HollandCliConfigError > %s" % e)
         sys.exit(e.code)
     except CementRuntimeError, e:
-        print("Holland.cliRuntimeError > %s" % e)
+        print("HollandCliRuntimeError > %s" % e)
         sys.exit(e.code)
-    except Holland.cliArgumentError, e:
-        print("Holland.cliArgumentError > %s" % e)
+    except HollandCliArgumentError, e:
+        print("HollandCliArgumentError > %s" % e)
         sys.exit(e.code)
-    except Holland.cliConfigError, e:
-        print("Holland.cliConfigError > %s" % e)
+    except HollandCliConfigError, e:
+        print("HollandCliConfigError > %s" % e)
         sys.exit(e.code)
     except Holland.cliRuntimeError, e:
-        print("Holland.cliRuntimeError > %s" % e)
+        print("HollandCliRuntimeError > %s" % e)
         sys.exit(e.code)
     sys.exit(0)
    
