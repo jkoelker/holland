@@ -1,6 +1,6 @@
 """holland.cli exception classes."""
 
-class Holland.cliError(Exception):
+class HollandCliError(Exception):
     """Generic errors."""
     def __init__(self, value, code=1):
         Exception.__init__(self)
@@ -13,20 +13,20 @@ class Holland.cliError(Exception):
     def __unicode__(self):
         return unicode(self.msg)
                 
-class Holland.cliConfigError(Holland.cliError):
+class HollandCliConfigError(HollandCliError):
     """Config parsing and setup errors."""
     def __init__(self, value):
         code = 10
-        Holland.cliError.__init__(self, value, code)
+        HollandCliError.__init__(self, value, code)
 
-class Holland.cliRuntimeError(Holland.cliError):
+class HollandCliRuntimeError(HollandCliError):
     """Runtime errors."""
     def __init__(self, value):
         code = 20
-        Holland.cliError.__init__(self, value, code)
+        HollandCliError.__init__(self, value, code)
 
-class Holland.cliArgumentError(Holland.cliError):
+class HollandCliArgumentError(HollandCliError):
     """Argument errors."""
     def __init__(self, value):
         code = 40
-        Holland.cliError.__init__(self, value, code)
+        HollandCliError.__init__(self, value, code)
