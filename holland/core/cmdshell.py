@@ -64,7 +64,7 @@ def main():
         return run(['help'] + args)
 
     # Bootstrap the environment
-    bootstrap(opts)
+    bootstrap(opts.config_file, opts.log_level, opts.quiet)
 
     LOGGER.info("Holland %s started with pid %d", HOLLAND_VERSION, os.getpid())
     return run(args)
