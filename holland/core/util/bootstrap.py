@@ -15,12 +15,12 @@ from holland.core.spool import spool
 
 LOGGER = logging.getLogger(__name__)
 
-def setup_config(opts):
-    if not opts.quiet:
-        debug = opts.log_level == 'debug'
+def setup_config(config_file, log_level='info', quiet=False):
+    if not quiet:
+        debug = log_level == 'debug'
         setup_console_logging(level=[logging.INFO,logging.DEBUG][debug])
     try:
-        _setup_config(opts.config_file)
+        _setup_config(config_file)
     except IOError, e:
         LOGGER.error("Failed to load holland config: %s", e)
         sys.exit(os.EX_CONFIG)
@@ -38,14 +38,14 @@ def log_warnings(message, category, filename, lineno, file=None, line=None):
         WARNLOG.debug(warning_string)
         WARNLOG.warn("%s", message)
 
-def setup_logging(opts):
+def setup_logging(log_level='', quiet=False):
     clear_root_handlers()
-    if hasattr(opts, 'log_level'):
-        log_level = opts.log_level or hollandcfg.lookup('logging.level')
+    if log_level:
+        log_level = log_level or hollandcfg.lookup('logging.level')
     else:
         log_level = hollandcfg.lookup('logging.level')
 
-    if (os.isatty(sys.stdin.fileno()) and not opts.quiet):
+    if (os.isatty(sys.stdin.fileno()) and not quiet):
         setup_console_logging(level=log_level)
 
     if hollandcfg.lookup('logging.filename'):
@@ -67,11 +67,14 @@ def setup_path():
 def setup_plugins():
     map(add_plugin_dir, hollandcfg.lookup('holland.plugin-dirs'))
 
-def bootstrap(opts):
+def bootstrap(config_file=None, log_level='info', quiet=False):
+    if config_file is None:
+        config_file = os.getenv('HOLLAND_CONFIG',
+                                '/etc/holland/holland.conf')
     # Setup the configuration
-    setup_config(opts)
+    setup_config(config_file, log_level, quiet)
     # Setup logging per config
-    setup_logging(opts)
+    setup_logging(log_level, quiet)
     # use umask setting
     setup_umask()
     # configure our PATH
