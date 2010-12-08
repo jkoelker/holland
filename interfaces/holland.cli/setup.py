@@ -29,7 +29,7 @@ setup(name='holland.cli',
     test_suite='nose.collector',
     entry_points="""
     [console_scripts]
-    holland.cli = holland.cli.core.appmain:main
+    holland = holland.cli.core.appmain:main
     """,
     namespace_packages=[
         'holland.cli', 
