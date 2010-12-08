@@ -15,10 +15,7 @@ from holland.core.spool import spool
 
 LOGGER = logging.getLogger(__name__)
 
-def setup_config(config_file, log_level='info', quiet=False):
-    if not quiet:
-        debug = log_level == 'debug'
-        setup_console_logging(level=[logging.INFO,logging.DEBUG][debug])
+def setup_config(config_file):
     try:
         _setup_config(config_file)
     except IOError, e:
@@ -38,16 +35,13 @@ def log_warnings(message, category, filename, lineno, file=None, line=None):
         WARNLOG.debug(warning_string)
         WARNLOG.warn("%s", message)
 
-def setup_logging(log_level='', quiet=False):
+def setup_logging(log_level=''):
     clear_root_handlers()
     hollandcfg = get_holland_config()
     if log_level:
         log_level = log_level or hollandcfg.lookup('logging.level')
     else:
         log_level = hollandcfg.lookup('logging.level')
-
-    if (os.isatty(sys.stdin.fileno()) and not quiet):
-        setup_console_logging(level=log_level)
 
     if hollandcfg.lookup('logging.filename'):
         setup_file_logging(filename=hollandcfg.lookup('logging.filename'),
@@ -76,9 +70,9 @@ def bootstrap(config_file=None, log_level='info', quiet=False):
         config_file = os.getenv('HOLLAND_CONFIG',
                                 '/etc/holland/holland.conf')
     # Setup the configuration
-    setup_config(config_file, log_level, quiet)
+    setup_config(config_file)
     # Setup logging per config
-    setup_logging(log_level, quiet)
+    setup_logging(log_level)
     # use umask setting
     setup_umask()
     # configure our PATH
