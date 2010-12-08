@@ -14,13 +14,21 @@ from cement.core.log import get_logger
 from cement.core.app_setup import lay_cement
 from cement.core.command import run_command
 
-from holland.cli.core.config import default_config
+from holland.cli.core.config import get_default_config
 from holland.cli.core.exc import HollandCliArgumentError, HollandCliConfigError
 from holland.cli.core.exc import HollandCliRuntimeError
 
 VERSION = get_distribution('holland.cli').version
 BANNER = """
-holland.cli version %s
+Holland Backup v%s
+Copyright (c) 2008-2010 Rackspace US, Inc.
+More info available at http://hollandbackup.org
+
+[[[[[[[]]]]]]] [[[[[[[]]]]]]]
+[[[[[[[]]]]]]]       [[[[[[[]]]]]]]
+[[[[[[[]]]]]]] [[[[[[[]]]]]]]
+[[[[[[[]]]]]]] [[[[[[[]]]]]]]
+
 """ % VERSION
 
 def main(args=None):
@@ -28,7 +36,7 @@ def main(args=None):
         if not args:
             args = sys.argv
             
-        lay_cement(config=default_config, banner=BANNER, args=args, 
+        lay_cement(config=get_default_config(), banner=BANNER, args=args, 
                    version=VERSION)
    T 
         log = get_logger(__name__)
