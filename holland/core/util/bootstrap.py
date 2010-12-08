@@ -35,13 +35,10 @@ def log_warnings(message, category, filename, lineno, file=None, line=None):
         WARNLOG.debug(warning_string)
         WARNLOG.warn("%s", message)
 
-def setup_logging(log_level=''):
+def setup_logging():
     clear_root_handlers()
     hollandcfg = get_holland_config()
-    if log_level:
-        log_level = log_level or hollandcfg.lookup('logging.level')
-    else:
-        log_level = hollandcfg.lookup('logging.level')
+    log_level = hollandcfg.lookup('logging.level')
 
     if hollandcfg.lookup('logging.filename'):
         setup_file_logging(filename=hollandcfg.lookup('logging.filename'),
@@ -72,7 +69,7 @@ def bootstrap(config_file=None, log_level='info', quiet=False):
     # Setup the configuration
     setup_config(config_file)
     # Setup logging per config
-    setup_logging(log_level)
+    setup_logging()
     # use umask setting
     setup_umask()
     # configure our PATH
