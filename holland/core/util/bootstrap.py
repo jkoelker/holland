@@ -9,7 +9,7 @@ import sys
 import logging
 import warnings
 from holland.core.plugin import add_plugin_dir
-from holland.core.config import hollandcfg, setup_config as _setup_config
+from holland.core.config import get_holland_config, setup_config as _setup_config
 from holland.core.log import setup_console_logging, setup_file_logging, clear_root_handlers
 from holland.core.spool import spool
 
@@ -40,6 +40,7 @@ def log_warnings(message, category, filename, lineno, file=None, line=None):
 
 def setup_logging(log_level='', quiet=False):
     clear_root_handlers()
+    hollandcfg = get_holland_config()
     if log_level:
         log_level = log_level or hollandcfg.lookup('logging.level')
     else:
@@ -57,14 +58,17 @@ def setup_logging(log_level='', quiet=False):
     warnings.showwarning = log_warnings
 
 def setup_umask():
+    hollandcfg = get_holland_config()
     os.umask(hollandcfg.lookup('holland.umask'))
 
 def setup_path():
+    hollandcfg = get_holland_config()
     if hollandcfg.lookup('holland.path'):
         os.putenv('PATH', hollandcfg.lookup('holland.path'))
         os.environ['PATH'] = hollandcfg.lookup('holland.path')
 
 def setup_plugins():
+    hollandcfg = get_holland_config()
     map(add_plugin_dir, hollandcfg.lookup('holland.plugin-dirs'))
 
 def bootstrap(config_file=None, log_level='info', quiet=False):
@@ -82,4 +86,4 @@ def bootstrap(config_file=None, log_level='info', quiet=False):
     # Setup plugin directories
     setup_plugins()
     # Setup spool
-    spool.path = hollandcfg.lookup('holland.backup-directory')
+    spool.path = get_holland_config().lookup('holland.backup-directory')
