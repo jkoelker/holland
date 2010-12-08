@@ -1,0 +1,64 @@
+NAME: holland.cli
+
+AUTHOR:
+
+DESCRIPTION:
+
+Describe your application here.
+
+holland.cli is built on the Cement CLI Application Framework.
+
+
+USAGE:
+
+    $ holland.cli --help
+    
+    
+CONFIGURATION:
+
+Application configuration files are parsed in the following order:
+
+    * /etc/holland.cli/holland.cli.conf
+    * ~/.holland.cli.conf
+
+    
+PLUGIN DEVELOPMENT:
+
+holland.cli supports external plugins via the Cement Framework.  To quick
+start a new plugin for holland.cli you can use the paster utility.
+
+Setup a virtual environment for development:
+    
+    $ virtualenv --no-site-package /path/to/env
+    
+    $ source /path/to/env/bin/activate
+    
+    
+Install holland.cli:
+    
+    $ cd /path/to/holland.cli
+    
+    $ python setup.py develop
+    
+
+Create and install the plugin:
+
+    $ mkdir plugins
+    
+    $ cd plugins
+    
+    $ paster cement-plugin holland.cli myplugin
+    
+    $ cd holland.cli.myplugin
+    
+    $ python setup.py develop
+    
+    
+Once your plugin is installed, you can enable it by adding a [plugin] block
+to a plugin config in /etc/holland.cli/plugins.d/myplugin.conf. You should 
+then see some example commands/options show up with:
+
+    $ holland.cli --help
+    
+    
+Then, code away!

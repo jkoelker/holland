@@ -1,0 +1,2 @@
+recursive-include holland.cli/templates *
+recursive-include tests *
