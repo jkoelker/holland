@@ -126,23 +126,32 @@ class GlobalConfig(BaseConfig):
             self.configdir = None
         BaseConfig.__init__(self, self.filename)
 
+    def get_path(type, name):
+        if not self.configdir:
+            raise IOError('Config has not been initialized')
+        return os.path.join(self.configdir, type, name) + CONFIG_SUFFIX
+
+    def cli(self):
+        """
+        Load the cement cli config relative to this configs
+        base directory
+        """
+        return BaseConfig(self.get_path('cli', 'cli'))
+        
+
     def provider(self, name):
         """
         Load the provider config relative to this configs
         base directory
         """
-        path = os.path.join(self.configdir, 'providers', name) + CONFIG_SUFFIX
-        return BaseConfig(path)
+        return BaseConfig(self.get_path('providers', name))
 
     def backupset(self, name):
         """
         Load the backupset config relative to this configs
         base directory
         """
-        if not self.configdir:
-            raise IOError("Config has not been initialized")
-        path = os.path.join(self.configdir, 'backupsets', name) + CONFIG_SUFFIX
-        return BackupConfig(path)
+        return BackupConfig(self.get_path('backupsetups', name))
 
     def hook_config(self, name):
         for section_name in self:
@@ -154,6 +163,9 @@ class GlobalConfig(BaseConfig):
                     return BaseConfig(self[section_name])
 
 hollandcfg = GlobalConfig(None)
+
+def get_holland_config():
+    return hollandcfg
 
 def load_backupset_config(name):
     return hollandcfg.backupset(name)
