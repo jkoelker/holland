@@ -34,7 +34,7 @@ def main(args=None):
         holland_bootstrap()
             
         lay_cement(config=get_default_config(), banner=BANNER, args=args, 
-                   version=VERSION)
+                   version=VERSION, clear_loggers=False)
     
         log = get_logger(__name__)
         log.debug("Cement Framework Initialized!")
