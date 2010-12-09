@@ -7,7 +7,6 @@ from cement.core.log import get_logger
 from cement.core.app_setup import lay_cement
 from cement.core.command import run_command
 
-from holland.cli.core.config import get_default_config
 from holland.cli.core.exc import HollandCliArgumentError, HollandCliConfigError
 from holland.cli.core.exc import HollandCliRuntimeError
 
@@ -32,6 +31,9 @@ def main(args=None):
             args = sys.argv
 
         holland_bootstrap()
+
+        # We can't import this until holland is bootstrapped
+        from holland.cli.core.config import get_default_config
             
         lay_cement(config=get_default_config(), banner=BANNER, args=args, 
                    version=VERSION, clear_loggers=False)
