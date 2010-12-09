@@ -32,6 +32,7 @@ setup(name='holland.cli',
     holland = holland.cli.core.appmain:main
     """,
     namespace_packages=[
+        'holland',
         'holland.cli', 
         'holland.cli.lib', 
         'holland.cli.bootstrap',
