@@ -19,6 +19,7 @@ def setup_config(config_file):
     try:
         _setup_config(config_file)
     except IOError, e:
+        setup_console_logging()
         LOGGER.error("Failed to load holland config: %s", e)
         sys.exit(os.EX_CONFIG)
 
