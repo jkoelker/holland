@@ -62,7 +62,7 @@ def setup_plugins():
     hollandcfg = get_holland_config()
     map(add_plugin_dir, hollandcfg.lookup('holland.plugin-dirs'))
 
-def bootstrap(config_file=None, log_level='info', quiet=False):
+def bootstrap(config_file=None):
     if config_file is None:
         config_file = os.getenv('HOLLAND_CONFIG',
                                 '/etc/holland/holland.conf')
