@@ -126,7 +126,7 @@ class GlobalConfig(BaseConfig):
             self.configdir = None
         BaseConfig.__init__(self, self.filename)
 
-    def get_path(type, name):
+    def get_path(self, type, name):
         if not self.configdir:
             raise IOError('Config has not been initialized')
         return os.path.join(self.configdir, type, name) + CONFIG_SUFFIX
