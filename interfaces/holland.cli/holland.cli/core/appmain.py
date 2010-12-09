@@ -1,10 +1,3 @@
-"""
-This is the application's core code.  Unless you know the "ins-and-outs" of
-The Cement CLI Application Framework, you probably should not modify the 
-main() function of this file.
-
-"""
-
 import sys
 from pkg_resources import get_distribution
 
@@ -17,6 +10,8 @@ from cement.core.command import run_command
 from holland.cli.core.config import get_default_config
 from holland.cli.core.exc import HollandCliArgumentError, HollandCliConfigError
 from holland.cli.core.exc import HollandCliRuntimeError
+
+from holland.core.util.bootstrap import bootstrap as holland_bootstrap
 
 VERSION = get_distribution('holland.cli').version
 BANNER = """
@@ -35,10 +30,12 @@ def main(args=None):
     try:
         if not args:
             args = sys.argv
+
+        holland_bootstrap()
             
         lay_cement(config=get_default_config(), banner=BANNER, args=args, 
                    version=VERSION)
-   T 
+    
         log = get_logger(__name__)
         log.debug("Cement Framework Initialized!")
 
