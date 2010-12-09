@@ -62,7 +62,7 @@ def main(args=None):
     except HollandCliConfigError, e:
         print("HollandCliConfigError > %s" % e)
         sys.exit(e.code)
-    except Holland.cliRuntimeError, e:
+    except HollandCliRuntimeError, e:
         print("HollandCliRuntimeError > %s" % e)
         sys.exit(e.code)
     sys.exit(0)
