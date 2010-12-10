@@ -10,7 +10,7 @@ from cement.core.controller import CementController, expose
 from cement.core.namespace import get_config
 from cement.core.log import get_logger
 
-from holland.cli.core.exc import Holland.cliArgumentError
+from holland.cli.core.exc import HollandCliArgumentError
 
 log = get_logger(__name__)
 config = get_config()
@@ -61,7 +61,7 @@ class RootController(CementController):
         exception.
         
         """
-        raise Holland.cliArgumentError, "A command is required. See --help?"
+        raise HollandCliArgumentError, "A command is required. See --help?"
     
     @expose('holland.cli.templates.root.cmd1')
     def cmd1(self):
