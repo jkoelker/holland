@@ -48,22 +48,22 @@ def main(args=None):
             
     except CementArgumentError, e:
         # Display the apps exception names instead for the Cement exceptions.
-        print("HollandCliArgumentError > %s" % e)
+        print("Error: %s" % e)
         sys.exit(e.code)
     except CementConfigError, e:
-        print("HollandCliConfigError > %s" % e)
+        print("Config Error: %s" % e)
         sys.exit(e.code)
     except CementRuntimeError, e:
-        print("HollandCliRuntimeError > %s" % e)
+        print("Runtime Error: %s" % e)
         sys.exit(e.code)
     except HollandCliArgumentError, e:
-        print("HollandCliArgumentError > %s" % e)
+        print("Error: %s" % e)
         sys.exit(e.code)
     except HollandCliConfigError, e:
-        print("HollandCliConfigError > %s" % e)
+        print("Config Error: %s" % e)
         sys.exit(e.code)
     except HollandCliRuntimeError, e:
-        print("HollandCliRuntimeError > %s" % e)
+        print("Runtime Error: %s" % e)
         sys.exit(e.code)
     sys.exit(0)
    
