@@ -14,14 +14,12 @@ from cement.core.hook import register_hook
 def options_hook(*args, **kwargs):
     # This hook allows us to append options to the root namespace
     root_options = init_parser()
-    root_options.add_option('-R', '--root-option', action ='store_true', 
-        dest='root_option', default=None, help='Example root option') 
     root_options.add_option('--json', action='store_true',
         dest='enable_json', default=None, 
         help='render output as json (CLI-API)')
-    root_options.add_option('--debug', action='store_true',
+    root_options.add_option('-d', '--debug', action='store_true',
         dest='debug', default=None, help='toggle debug output')
-    root_options.add_option('--quiet', action='store_true',
+    root_options.add_option('-q', '--quiet', action='store_true',
         dest='quiet', default=None, help='disable console logging')
     return ('root', root_options)
 
@@ -29,4 +27,4 @@ def options_hook(*args, **kwargs):
 # 
 #   from holland.cli.bootstrap import example
 #
-    
+
