@@ -10,7 +10,7 @@ import logging
 import warnings
 from holland.core.plugin import add_plugin_dir
 from holland.core.config import get_holland_config, setup_config as _setup_config
-from holland.core.log import setup_console_logging, setup_file_logging, clear_root_handlers
+from holland.core.log import setup_console_logging, setup_file_logging
 from holland.core.spool import spool
 
 LOGGER = logging.getLogger(__name__)
@@ -37,7 +37,18 @@ def log_warnings(message, category, filename, lineno, file=None, line=None):
         WARNLOG.warn("%s", message)
 
 def setup_logging():
-    clear_root_handlers()
+    hollandcfg = get_holland_config()
+    if hollandcfg.has_key('loggers'):
+        setup_configed_logging()
+    else:
+        setup_legacy_logging()
+
+def setup_configed_logging():
+    import logging.config
+    hollandcfg = get_holland_config()
+    logging.config.fileConfig(hollandcfg.filename)
+
+def setup_legacy_logging():
     hollandcfg = get_holland_config()
     log_level = hollandcfg.lookup('logging.level')
 
