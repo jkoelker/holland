@@ -47,7 +47,6 @@ def main(args=None):
         run_command(args[1])
             
     except CementArgumentError, e:
-        # Display the apps exception names instead for the Cement exceptions.
         print("Error: %s" % e)
         sys.exit(e.code)
     except CementConfigError, e:
