@@ -12,7 +12,7 @@ from holland.cli.core.exc import HollandCliRuntimeError
 
 from holland.core.util.bootstrap import bootstrap as holland_bootstrap
 
-VERSION = get_distribution('holland.cli').version
+VERSION = get_distribution('holland').version
 BANNER = """
 Holland Backup v%s
 Copyright (c) 2008-2010 Rackspace US, Inc.
