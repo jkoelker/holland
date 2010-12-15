@@ -9,6 +9,7 @@ to expose commands to the root namespace which will be accessible under:
 from cement.core.controller import CementController, expose
 from cement.core.namespace import get_config
 from cement.core.log import get_logger
+from cement import namespaces
 
 from holland.cli.core.exc import HollandCliArgumentError
 
@@ -61,7 +62,8 @@ class RootController(CementController):
         exception.
         
         """
-        raise HollandCliArgumentError, "A command is required. See --help?"
+        namespaces['root'].options.print_help()
+        raise HollandCliArgumentError, "A command is required."
     
     @expose('holland.cli.templates.root.cmd1')
     def cmd1(self):
