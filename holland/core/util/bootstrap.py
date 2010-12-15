@@ -53,8 +53,11 @@ def setup_legacy_logging():
     log_level = hollandcfg.lookup('logging.level')
 
     if hollandcfg.lookup('logging.filename'):
-        setup_file_logging(filename=hollandcfg.lookup('logging.filename'),
-                           level=log_level)
+        try:
+            setup_file_logging(filename=str(hollandcfg.lookup('logging.filename')),
+                               level=log_level)
+        except IOError, exc:
+            LOGGER.warn("Skipping file logging: %s", exc)
 
     # Monkey patch in routing warnings through logging
     old_showwarning = warnings.showwarning
@@ -84,6 +87,9 @@ def bootstrap(config_file=None):
     setup_logging()
     # use umask setting
     setup_umask()
+    # setup tmpdir
+    if hollandcfg.lookup('holland.tmpdir'):
+        os.environ['TMPDIR'] = str(hollandcfg.lookup('holland.tmpdir'))
     # configure our PATH
     setup_path()
     # Setup plugin directories
