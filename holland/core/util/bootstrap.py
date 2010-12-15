@@ -88,6 +88,7 @@ def bootstrap(config_file=None):
     # use umask setting
     setup_umask()
     # setup tmpdir
+    hollandcfg = get_holland_config()
     if hollandcfg.lookup('holland.tmpdir'):
         os.environ['TMPDIR'] = str(hollandcfg.lookup('holland.tmpdir'))
     # configure our PATH
