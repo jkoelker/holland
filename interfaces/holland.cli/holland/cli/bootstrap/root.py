@@ -25,6 +25,5 @@ def options_hook(*args, **kwargs):
 
 # Import all additional (non-plugin) bootstrap libraries here    
 # 
-#   from holland.cli.bootstrap import example
-#
 
+from holland.cli.bootstrap import listbackups
